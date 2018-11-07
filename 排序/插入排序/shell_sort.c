@@ -46,27 +46,29 @@ void gap_sort(int a[], int i, int n, int gap)
 {
 	int j, k, tmp;
 
-	for(j = i + gap; j < n; j+=gap)
+	for(j = i + gap; j < n; j+=gap) //从左第2个数开始往右，每个数与子序中前面的数依次比较
 	{
-		if(a[j] < a[j-gap])
+		if(a[j] < a[j-gap]) //把每个a[j]插入到正确的位置
 		{
 			tmp = a[j];
 			k = j-gap;
+			//j前面a[i,...,j-gap]数列中，每个数都与a[j](即tmp)比较，若大于它，就后移
 			while(k >= 0 && a[k] > tmp)
 			{
 				a[k+gap] = a[k];
 				k -= gap;
 			}
 			a[k+gap] = tmp;
-		}
-	}
+		}//if
+	}//for
 }
 
 void shell_sort2(int a[], int n)
 {
+	//gap为步长，每次减为原来的一半
 	for(int gap = n/2; gap > 0; gap /= 2)
 	{
-		for(int i = 0; i < gap; ++i)
+		for(int i = 0; i < gap; ++i)//共gap个组，对每一组都执行直接插入排序
 		{
 			gap_sort(a, i, n, gap);
 		}
